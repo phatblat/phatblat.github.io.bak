@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Delta Service for Mobile Apps"
-date: 2014-02-21 11:59:10 -0700
+date: 2014-02-20 20:59:10 -0700
 comments: false
 published: true
 categories: 
