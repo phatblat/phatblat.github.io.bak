@@ -4,7 +4,7 @@
   <title><![CDATA[My Octopress Blog]]></title>
   <link href="http://phatblat.github.io/atom.xml" rel="self"/>
   <link href="http://phatblat.github.io/"/>
-  <updated>2014-02-21T12:12:56-07:00</updated>
+  <updated>2014-02-21T12:14:00-07:00</updated>
   <id>http://phatblat.github.io/</id>
   <author>
     <name><![CDATA[Your Name]]></name>
@@ -14,13 +14,11 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Delta Service]]></title>
+    <title type="html"><![CDATA[Delta Service for Mobile Apps]]></title>
     <link href="http://phatblat.github.io/blog/2014/02/21/delta-service/"/>
     <updated>2014-02-21T11:59:10-07:00</updated>
     <id>http://phatblat.github.io/blog/2014/02/21/delta-service</id>
-    <content type="html"><![CDATA[<h1>Delta Service for Mobile Apps</h1>
-
-<p>A typical RESTful API is simple and intuitive to consume, but requires a lot of service calls in order to download a large dataset. This can be a problem in mobile when an app simply doesn’t have the time or the bandwidth to wait for all the service calls to finish collecting the dataset.</p>
+    <content type="html"><![CDATA[<p>A typical RESTful API is simple and intuitive to consume, but requires a lot of service calls in order to download a large dataset. This can be a problem in mobile when an app simply doesn’t have the time or the bandwidth to wait for all the service calls to finish collecting the dataset.</p>
 
 <p>There are a few options to try to improve on this:</p>
 
