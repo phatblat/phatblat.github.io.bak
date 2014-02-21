@@ -158,8 +158,8 @@ Accept: */*
 If-Modified-Since: Fri, 07 Feb 2014 20:04:06 GMT
 
 HTTP/1.1 304 Not Modified
-Date: Fri, 07 Feb 2014 20:04:06 GMT
-Last-Modified: Fri, 07 Feb 2014 20:04:06 GMT
+Date: Sat, 08 Feb 2014 12:01:06 GMT
+Last-Modified: Sat, 08 Feb 2014 12:01:06 GMT
 ```
 
 ## Date Handling
