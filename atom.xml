@@ -4,7 +4,7 @@
   <title><![CDATA[Ben Chatelain]]></title>
   <link href="http://phatblat.github.io/atom.xml" rel="self"/>
   <link href="http://phatblat.github.io/"/>
-  <updated>2014-02-21T16:35:50-07:00</updated>
+  <updated>2014-02-21T16:37:09-07:00</updated>
   <id>http://phatblat.github.io/</id>
   <author>
     <name><![CDATA[Ben Chatelain]]></name>
@@ -253,8 +253,8 @@ Both RESTful and search APIs have the downside of requiring a network connection
 </span><span class='line'>If-Modified-Since: Fri, 07 Feb 2014 20:04:06 GMT
 </span><span class='line'>
 </span><span class='line'>HTTP/1.1 304 Not Modified
-</span><span class='line'>Date: Fri, 07 Feb 2014 20:04:06 GMT
-</span><span class='line'>Last-Modified: Fri, 07 Feb 2014 20:04:06 GMT</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>Date: Sat, 08 Feb 2014 12:01:06 GMT
+</span><span class='line'>Last-Modified: Sat, 08 Feb 2014 12:01:06 GMT</span></code></pre></td></tr></table></div></figure>
 
 
 <h2>Date Handling</h2>
