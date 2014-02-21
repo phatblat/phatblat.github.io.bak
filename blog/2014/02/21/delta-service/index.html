@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>My Octopress Blog</title>
+  <title>Delta Service - My Octopress Blog</title>
   <meta name="author" content="Your Name">
 
   
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://phatblat.github.io">
+  <link rel="canonical" href="http://phatblat.github.io/blog/2014/02/21/delta-service">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
@@ -63,15 +63,12 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2014/02/21/delta-service/">Delta Service</a></h1>
+      <h1 class="entry-title">Delta Service</h1>
     
     
       <p class="meta">
@@ -94,7 +91,7 @@
   </header>
 
 
-  <div class="entry-content"><h1>Delta Service for Mobile Apps</h1>
+<div class="entry-content"><h1>Delta Service for Mobile Apps</h1>
 
 <p>A typical RESTful API is simple and intuitive to consume, but requires a lot of service calls in order to download a large dataset. This can be a problem in mobile when an app simply doesn’t have the time or the bandwidth to wait for all the service calls to finish collecting the dataset.</p>
 
@@ -313,18 +310,51 @@ Both RESTful and search APIs have the downside of requiring a network connection
 
 <p>An alternative to using dates is to use an integer version number. This strays from REST and requires the server to keep track of these versions. But, the server implementation could be as simple as a mapping of version numbers to dates which are then used to query against the “last modified” attribute of the records. Note that the point of version numbers would not be to support returning old version of the data. This is far more work as it requires storing snapshots of every version of every record, at least those versions that have changed. The point of this delta service is to quickly and efficiently update clients to the latest version of the data.</p>
 </div>
+
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">Your Name</span></span>
+
+      
+
+
+
+
+
+
+
+
   
 
 
-    </article>
+<time datetime="2014-02-21T11:59:10-07:00" pubdate data-updated="true">Feb 21<span>st</span>, 2014</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
   
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://phatblat.github.io/blog/2014/02/21/delta-service/" data-via="" data-counturl="http://phatblat.github.io/blog/2014/02/21/delta-service/" >Tweet</a>
+  
+  
+  
 </div>
+
+    
+    <p class="meta">
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
 <aside class="sidebar">
   
     <section>
@@ -344,6 +374,7 @@ Both RESTful and search APIs have the downside of requiring a network connection
 
   
 </aside>
+
 
     </div>
   </div>
