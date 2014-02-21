@@ -1,13 +1,11 @@
 ---
 layout: post
-title: "Delta Service"
+title: "Delta Service for Mobile Apps"
 date: 2014-02-21 11:59:10 -0700
 comments: false
 published: true
 categories: 
 ---
-
-# Delta Service for Mobile Apps
 
 A typical RESTful API is simple and intuitive to consume, but requires a lot of service calls in order to download a large dataset. This can be a problem in mobile when an app simply doesn’t have the time or the bandwidth to wait for all the service calls to finish collecting the dataset.
 
@@ -17,11 +15,17 @@ There are a few options to try to improve on this:
   2. Download the entire dataset with a single service call
   3. Pre-install the data on the client (mobile apps only)
 
-Option #1: The search option is the only option for extremely large datasets; you simply can’t download all the data from Google Maps onto a mobile device. With search, there is the risk that repeated searches will download some of the same content, wasting bandwidth. Also, every search needs a network connection and takes time to complete, introducing delays to the user experience. In some cases, such as identical search terms, caching can improve upon these issues.
+### Option #1 - Search
 
-Option #2:  Downloading the entire dataset in a single service call can be significantly faster than the many requests necessary to do so using a RESTful API. A typical RESTful API requires one request to get a list of resources and then n requests to fetch all the resources individually (n+1 requests). The gain with downloading the entire set at once is the removal of the request overhead (and startup delay) for n requests. Additionally, compressing larger response payloads has a bigger benefit than compressing small ones. However, this “download everything” option has the greatest impact on UX as the client has to download and process the entire payload before the user can benefit from the data.
+The search option is the only option for extremely large datasets; you simply can’t download all the data from Google Maps onto a mobile device. With search, there is the risk that repeated searches will download some of the same content, wasting bandwidth. Also, every search needs a network connection and takes time to complete, introducing delays to the user experience. In some cases, such as identical search terms, caching can improve upon these issues.
 
-Option #3:  Pre-installing the data on the client has the biggest UX benefit: immediate availablility of the data. Note that this benefit is only realized after the mobile app has been downloaded and installed from the app store. The initial download takes longer since the app bundle is larger due to the included data. A big issue with packaging the data in the app is that you have to release an update to the app in order to get updated data into the hands of your users. This is a big delay as development, testing and Apple’s review all have to complete before the update is available. The upside to this delay is that during the entire release process users have a copy of the data and can continue using it, but it’s growing stale. Additionally, users have to actually install the update. There are always some users that don’t update their apps. Depending on how critical the data is, this can be a showstopper for some apps.
+### Option #2 - One-shot
+
+Downloading the entire dataset in a single service call can be significantly faster than the many requests necessary to do so using a RESTful API. A typical RESTful API requires one request to get a list of resources and then n requests to fetch all the resources individually (n+1 requests). The gain with downloading the entire set at once is the removal of the request overhead (and startup delay) for n requests. Additionally, compressing larger response payloads has a bigger benefit than compressing small ones. However, this “download everything” option has the greatest impact on UX as the client has to download and process the entire payload before the user can benefit from the data.
+
+### Option #3 - Pre-install
+
+Pre-installing the data on the client has the biggest UX benefit: immediate availablility of the data. Note that this benefit is only realized after the mobile app has been downloaded and installed from the app store. The initial download takes longer since the app bundle is larger due to the included data. A big issue with packaging the data in the app is that you have to release an update to the app in order to get updated data into the hands of your users. This is a big delay as development, testing and Apple’s review all have to complete before the update is available. The upside to this delay is that during the entire release process users have a copy of the data and can continue using it, but it’s growing stale. Additionally, users have to actually install the update. There are always some users that don’t update their apps. Depending on how critical the data is, this can be a showstopper for some apps.
 Both RESTful and search APIs have the downside of requiring a network connection in order to get any data. Previously requested data can be served up from a cache, but that doesn’t help if the user is asking for data that hasn’t been cached. While the “download everything” and pre-installed data options require network connections to get the data into the app, once that is complete the network is no longer required. Thus, these latter options provide the best offline experience.
 
 So, it would seem that we have to choose between the following experiences:
@@ -38,7 +42,7 @@ At a high level, here’s the idea: pre-install a snapshot of the dataset in the
 
 Before I get any further into the details, I want to call out the pros and cons of this delta API approach.
 
-Pros
+### Pros
 
    * Data is immediately available after app install
    * Data is available offline
@@ -47,7 +51,7 @@ Pros
    * Updates are smaller so less potential for user confusion due to looking at data which changes after the update
    * Searching is fast
 
-Cons
+### Cons
 
    * Longer app download times due to larger app binary
    * Not for large datasets (~50MB+)
@@ -60,7 +64,7 @@ Cons
 
 Let’s start with the “download everything” call. This is just a service endpoint that a GET request invokes a response which contains the entire dataset in question.
 
-{% codeblock %}
+```
 GET /api/widgets
 Accept: */* 
 
@@ -91,13 +95,13 @@ Content-Type: application/json
         }
     ]
 }
-{% endcodeblock %}
+```
 
 This service call will be used by the client whenever there is a problem applying a delta update. It also provides an interface for the build prep process to grab a current copy of the data to be included in the app bundle.
 
 In order to stay as close to the principles of REST, the delta functionality comes into play when the client does a conditional GET and includes an If-Modified-Since header in the request.
 
-{% codeblock %}
+```
 GET /api/widgets
 Accept: */* 
 If-Modified-Since: Wed, 05 Feb 2014 19:08:16 GMT 
@@ -117,13 +121,13 @@ Content-Type: application/json
         }
     ]
 }
-{% endcodeblock %}
+```
 
 The records included in the response body are upserted into the client’s data; any that don’t exist are created, those that do are updated if any of the attributes have changed.
 
 This takes care of creating and updating records, but what about removing records? The simplest approach I’ve been able to come up with is to include a “hidden” attribute with a value of true which instructs the client to stop displaying that record. This approach allows for bringing back records in the future.
 
-{% codeblock %}
+```
 GET /api/widgets
 Accept: */* 
 If-Modified-Since: Thu, 06 Feb 2014 13:31:30 GMT   
@@ -141,7 +145,7 @@ Content-Type: application/json
         }
     ]
 }
-{% endcodeblock %}
+```
 
 ## Date Handling
 
