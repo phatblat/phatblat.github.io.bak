@@ -1,19 +1,19 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
-        <loc>http://phatblat.github.io/blog/2014/02/20/delta-service/</loc>
+        <loc>http://phatblat.com/blog/2014/02/20/delta-service/</loc>
         <lastmod>2014-02-21T16:37:06-07:00</lastmod>
     </url>
     <url>
-        <loc>http://phatblat.github.io/blog/archives/</loc>
+        <loc>http://phatblat.com/blog/archives/</loc>
         <lastmod>2014-02-21T16:37:06-07:00</lastmod>
     </url>
     <url>
-        <loc>http://phatblat.github.io/</loc>
+        <loc>http://phatblat.com/</loc>
         <lastmod>2014-02-21T16:37:06-07:00</lastmod>
     </url>
     <url>
-        <loc>http://phatblat.github.io/robots.txt</loc>
+        <loc>http://phatblat.com/robots.txt</loc>
         <lastmod>2014-02-21T11:48:12-07:00</lastmod>
     </url>
 </urlset>
