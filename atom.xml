@@ -4,7 +4,7 @@
   <title><![CDATA[My Octopress Blog]]></title>
   <link href="http://phatblat.github.io/atom.xml" rel="self"/>
   <link href="http://phatblat.github.io/"/>
-  <updated>2014-02-21T12:14:00-07:00</updated>
+  <updated>2014-02-21T12:24:43-07:00</updated>
   <id>http://phatblat.github.io/</id>
   <author>
     <name><![CDATA[Your Name]]></name>
@@ -29,11 +29,17 @@
 </ol>
 
 
-<p>Option #1: The search option is the only option for extremely large datasets; you simply can’t download all the data from Google Maps onto a mobile device. With search, there is the risk that repeated searches will download some of the same content, wasting bandwidth. Also, every search needs a network connection and takes time to complete, introducing delays to the user experience. In some cases, such as identical search terms, caching can improve upon these issues.</p>
+<h3>Option #1 &ndash; Search</h3>
 
-<p>Option #2:  Downloading the entire dataset in a single service call can be significantly faster than the many requests necessary to do so using a RESTful API. A typical RESTful API requires one request to get a list of resources and then n requests to fetch all the resources individually (n+1 requests). The gain with downloading the entire set at once is the removal of the request overhead (and startup delay) for n requests. Additionally, compressing larger response payloads has a bigger benefit than compressing small ones. However, this “download everything” option has the greatest impact on UX as the client has to download and process the entire payload before the user can benefit from the data.</p>
+<p>The search option is the only option for extremely large datasets; you simply can’t download all the data from Google Maps onto a mobile device. With search, there is the risk that repeated searches will download some of the same content, wasting bandwidth. Also, every search needs a network connection and takes time to complete, introducing delays to the user experience. In some cases, such as identical search terms, caching can improve upon these issues.</p>
 
-<p>Option #3:  Pre-installing the data on the client has the biggest UX benefit: immediate availablility of the data. Note that this benefit is only realized after the mobile app has been downloaded and installed from the app store. The initial download takes longer since the app bundle is larger due to the included data. A big issue with packaging the data in the app is that you have to release an update to the app in order to get updated data into the hands of your users. This is a big delay as development, testing and Apple’s review all have to complete before the update is available. The upside to this delay is that during the entire release process users have a copy of the data and can continue using it, but it’s growing stale. Additionally, users have to actually install the update. There are always some users that don’t update their apps. Depending on how critical the data is, this can be a showstopper for some apps.
+<h3>Option #2 &ndash; One-shot</h3>
+
+<p>Downloading the entire dataset in a single service call can be significantly faster than the many requests necessary to do so using a RESTful API. A typical RESTful API requires one request to get a list of resources and then n requests to fetch all the resources individually (n+1 requests). The gain with downloading the entire set at once is the removal of the request overhead (and startup delay) for n requests. Additionally, compressing larger response payloads has a bigger benefit than compressing small ones. However, this “download everything” option has the greatest impact on UX as the client has to download and process the entire payload before the user can benefit from the data.</p>
+
+<h3>Option #3 &ndash; Pre-install</h3>
+
+<p>Pre-installing the data on the client has the biggest UX benefit: immediate availablility of the data. Note that this benefit is only realized after the mobile app has been downloaded and installed from the app store. The initial download takes longer since the app bundle is larger due to the included data. A big issue with packaging the data in the app is that you have to release an update to the app in order to get updated data into the hands of your users. This is a big delay as development, testing and Apple’s review all have to complete before the update is available. The upside to this delay is that during the entire release process users have a copy of the data and can continue using it, but it’s growing stale. Additionally, users have to actually install the update. There are always some users that don’t update their apps. Depending on how critical the data is, this can be a showstopper for some apps.
 Both RESTful and search APIs have the downside of requiring a network connection in order to get any data. Previously requested data can be served up from a cache, but that doesn’t help if the user is asking for data that hasn’t been cached. While the “download everything” and pre-installed data options require network connections to get the data into the app, once that is complete the network is no longer required. Thus, these latter options provide the best offline experience.</p>
 
 <p>So, it would seem that we have to choose between the following experiences:</p>
@@ -53,7 +59,7 @@ Both RESTful and search APIs have the downside of requiring a network connection
 
 <p>Before I get any further into the details, I want to call out the pros and cons of this delta API approach.</p>
 
-<p>Pros</p>
+<h3>Pros</h3>
 
 <ul>
 <li> Data is immediately available after app install</li>
@@ -65,7 +71,7 @@ Both RESTful and search APIs have the downside of requiring a network connection
 </ul>
 
 
-<p>Cons</p>
+<h3>Cons</h3>
 
 <ul>
 <li> Longer app download times due to larger app binary</li>
