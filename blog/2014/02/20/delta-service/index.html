@@ -202,12 +202,14 @@ Both RESTful and search APIs have the downside of requiring a network connection
 <span class='line-number'>28</span>
 <span class='line-number'>29</span>
 <span class='line-number'>30</span>
+<span class='line-number'>31</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>GET /api/widgets
-</span><span class='line'>Accept: */* 
+</span><span class='line'>Accept: */*
 </span><span class='line'>
-</span><span class='line'>HTTP/1.1 200 OK 
-</span><span class='line'>Date: Tue, 04 Feb 2014 16:30:30 GMT 
-</span><span class='line'>Content-Type: application/json 
+</span><span class='line'>HTTP/1.1 200 OK
+</span><span class='line'>Date: Tue, 04 Feb 2014 16:30:30 GMT
+</span><span class='line'>Last-Modified: Tue, 04 Feb 2014 16:30:30 GMT
+</span><span class='line'>Content-Type: application/json
 </span><span class='line'>
 </span><span class='line'>{
 </span><span class='line'>    "widgets": [
@@ -257,13 +259,15 @@ Both RESTful and search APIs have the downside of requiring a network connection
 <span class='line-number'>17</span>
 <span class='line-number'>18</span>
 <span class='line-number'>19</span>
+<span class='line-number'>20</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>GET /api/widgets
-</span><span class='line'>Accept: */* 
-</span><span class='line'>If-Modified-Since: Wed, 05 Feb 2014 19:08:16 GMT 
+</span><span class='line'>Accept: */*
+</span><span class='line'>If-Modified-Since: Wed, 05 Feb 2014 19:08:16 GMT
 </span><span class='line'>
-</span><span class='line'>HTTP/1.1 200 OK 
-</span><span class='line'>Date: Thu, 06 Feb 2014 13:31:30 GMT 
-</span><span class='line'>Content-Type: application/json 
+</span><span class='line'>HTTP/1.1 200 OK
+</span><span class='line'>Date: Thu, 06 Feb 2014 13:31:30 GMT
+</span><span class='line'>Last-Modified: Thu, 06 Feb 2014 13:31:30 GMT
+</span><span class='line'>Content-Type: application/json
 </span><span class='line'>
 </span><span class='line'>{
 </span><span class='line'>    "widgets": [
@@ -299,13 +303,15 @@ Both RESTful and search APIs have the downside of requiring a network connection
 <span class='line-number'>15</span>
 <span class='line-number'>16</span>
 <span class='line-number'>17</span>
+<span class='line-number'>18</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>GET /api/widgets
-</span><span class='line'>Accept: */* 
-</span><span class='line'>If-Modified-Since: Thu, 06 Feb 2014 13:31:30 GMT   
+</span><span class='line'>Accept: */*
+</span><span class='line'>If-Modified-Since: Thu, 06 Feb 2014 13:31:30 GMT
 </span><span class='line'>
-</span><span class='line'>HTTP/1.1 200 OK 
-</span><span class='line'>Date: Fri, 07 Feb 2014 20:04:06 GMT 
-</span><span class='line'>Content-Type: application/json  
+</span><span class='line'>HTTP/1.1 200 OK
+</span><span class='line'>Date: Fri, 07 Feb 2014 20:04:06 GMT
+</span><span class='line'>Last-Modified: Fri, 07 Feb 2014 20:04:06 GMT
+</span><span class='line'>Content-Type: application/json
 </span><span class='line'>
 </span><span class='line'>{
 </span><span class='line'>    "widgets": [
@@ -318,13 +324,31 @@ Both RESTful and search APIs have the downside of requiring a network connection
 </span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
 
 
+<p>The last example is when a client asks for changes, but nothing has changed. In this case the response will have a 304 status code and an empty body. This tells the client it is up-to-date.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>GET /api/widgets
+</span><span class='line'>Accept: */*
+</span><span class='line'>If-Modified-Since: Fri, 07 Feb 2014 20:04:06 GMT
+</span><span class='line'>
+</span><span class='line'>HTTP/1.1 304 Not Modified
+</span><span class='line'>Date: Fri, 07 Feb 2014 20:04:06 GMT
+</span><span class='line'>Last-Modified: Fri, 07 Feb 2014 20:04:06 GMT</span></code></pre></td></tr></table></div></figure>
+
+
 <h2>Date Handling</h2>
 
-<p>With the myriad of problems that can arise with interpreting dates, it is very important for the client to treat the value of the Date response header as an opaque string and return the exact same value in the If-Modified-Since request header of the next request to the service.</p>
+<p>With the myriad of problems that can arise with interpreting dates, it is very important for the client to treat the value of the Last-Modified response header as an opaque string and return the exact same value in the If-Modified-Since request header of the next request to the service.</p>
 
-<p>On the server side it’s also important to pay attention to the exact time that the “last modified” attribute gets set on the records. If there is any delay between when this value is set and that record is available to clients through the delta service, any clients calling in during this gap will miss changes. Say you decide to update records in a staging database and the &ldquo;last modified” timestamp gets set there (Sat, 08 Feb 2014 17:00:00 GMT), meanwhile a client hits the service and receives a response with some changes (Date header Sat, 08 Feb 2014 17:15:00 GMT) then after the changes have been validated in the staging area they are moved out to the production database (Sat, 08 Feb 2014 18:00:00 GMT). At this point the “last modified” attributes on the recently changed records are an hour old. The client that last called in at 17:15 will ask for changes since 17:15 the next time, but those changes that were applied with a 17:00 timestamp will be skipped for that client. This leads to very strange stale data issues that are difficult to debug.</p>
+<p>On the server side it’s also important to pay attention to the exact time that the “last modified” attribute gets set on the records. If there is any delay between when this value is set and that record is available to clients through the delta service, any clients calling in during this gap will miss changes. Say you decide to update records in a staging database and the &ldquo;last modified” timestamp gets set there (Sat, 08 Feb 2014 17:00:00 GMT), meanwhile a client hits the service and receives a response with some changes (Last-Modified header Sat, 08 Feb 2014 17:15:00 GMT) then after the changes have been validated in the staging area they are moved out to the production database (Sat, 08 Feb 2014 18:00:00 GMT). At this point the “last modified” attributes on the recently changed records are an hour old. The client that last called in at 17:15 will ask for changes since 17:15 the next time, but those changes that were applied with a 17:00 timestamp will be skipped for that client. This leads to very strange stale data issues that are difficult to debug.</p>
 
-<p>An alternative to using dates is to use an integer version number. This strays from REST and requires the server to keep track of these versions. But, the server implementation could be as simple as a mapping of version numbers to dates which are then used to query against the “last modified” attribute of the records. Note that the point of version numbers would not be to support returning old version of the data. This is far more work as it requires storing snapshots of every version of every record, at least those versions that have changed. The point of this delta service is to quickly and efficiently update clients to the latest version of the data.</p>
+<p>An alternative to using dates is to use an integer version number. This strays from REST and requires the server to keep track of these numeric versions. But, the server implementation could be as simple as a mapping of version numbers to dates which are then used to query against the “last modified” attribute of the records. Note that the point of version numbers would not be to support returning old version of the data. This is far more work as it requires storing snapshots of every version of every record, at least those versions that have changed. The point of this delta service is to quickly and efficiently update clients to the latest version of the data.</p>
 </div>
 
 
