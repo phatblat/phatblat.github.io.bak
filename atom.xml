@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[My Octopress Blog]]></title>
+  <title><![CDATA[Ben Chatelain]]></title>
   <link href="http://phatblat.github.io/atom.xml" rel="self"/>
   <link href="http://phatblat.github.io/"/>
-  <updated>2014-02-21T12:24:43-07:00</updated>
+  <updated>2014-02-21T14:49:15-07:00</updated>
   <id>http://phatblat.github.io/</id>
   <author>
-    <name><![CDATA[Your Name]]></name>
+    <name><![CDATA[Ben Chatelain]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
