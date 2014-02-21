@@ -66,11 +66,12 @@ Let’s start with the “download everything” call. This is just a service en
 
 ```
 GET /api/widgets
-Accept: */* 
+Accept: */*
 
-HTTP/1.1 200 OK 
-Date: Tue, 04 Feb 2014 16:30:30 GMT 
-Content-Type: application/json 
+HTTP/1.1 200 OK
+Date: Tue, 04 Feb 2014 16:30:30 GMT
+Last-Modified: Tue, 04 Feb 2014 16:30:30 GMT
+Content-Type: application/json
 
 {
     "widgets": [
@@ -103,12 +104,13 @@ In order to stay as close to the principles of REST, the delta functionality com
 
 ```
 GET /api/widgets
-Accept: */* 
-If-Modified-Since: Wed, 05 Feb 2014 19:08:16 GMT 
+Accept: */*
+If-Modified-Since: Wed, 05 Feb 2014 19:08:16 GMT
 
-HTTP/1.1 200 OK 
-Date: Thu, 06 Feb 2014 13:31:30 GMT 
-Content-Type: application/json 
+HTTP/1.1 200 OK
+Date: Thu, 06 Feb 2014 13:31:30 GMT
+Last-Modified: Thu, 06 Feb 2014 13:31:30 GMT
+Content-Type: application/json
 
 {
     "widgets": [
@@ -129,12 +131,13 @@ This takes care of creating and updating records, but what about removing record
 
 ```
 GET /api/widgets
-Accept: */* 
-If-Modified-Since: Thu, 06 Feb 2014 13:31:30 GMT   
+Accept: */*
+If-Modified-Since: Thu, 06 Feb 2014 13:31:30 GMT
 
-HTTP/1.1 200 OK 
-Date: Fri, 07 Feb 2014 20:04:06 GMT 
-Content-Type: application/json  
+HTTP/1.1 200 OK
+Date: Fri, 07 Feb 2014 20:04:06 GMT
+Last-Modified: Fri, 07 Feb 2014 20:04:06 GMT
+Content-Type: application/json
 
 {
     "widgets": [
@@ -147,11 +150,23 @@ Content-Type: application/json
 }
 ```
 
+The last example is when a client asks for changes, but nothing has changed. In this case the response will have a 304 status code and an empty body. This tells the client it is up-to-date.
+
+```
+GET /api/widgets
+Accept: */*
+If-Modified-Since: Fri, 07 Feb 2014 20:04:06 GMT
+
+HTTP/1.1 304 Not Modified
+Date: Fri, 07 Feb 2014 20:04:06 GMT
+Last-Modified: Fri, 07 Feb 2014 20:04:06 GMT
+```
+
 ## Date Handling
 
-With the myriad of problems that can arise with interpreting dates, it is very important for the client to treat the value of the Date response header as an opaque string and return the exact same value in the If-Modified-Since request header of the next request to the service.
+With the myriad of problems that can arise with interpreting dates, it is very important for the client to treat the value of the Last-Modified response header as an opaque string and return the exact same value in the If-Modified-Since request header of the next request to the service.
 
-On the server side it’s also important to pay attention to the exact time that the “last modified” attribute gets set on the records. If there is any delay between when this value is set and that record is available to clients through the delta service, any clients calling in during this gap will miss changes. Say you decide to update records in a staging database and the "last modified” timestamp gets set there (Sat, 08 Feb 2014 17:00:00 GMT), meanwhile a client hits the service and receives a response with some changes (Date header Sat, 08 Feb 2014 17:15:00 GMT) then after the changes have been validated in the staging area they are moved out to the production database (Sat, 08 Feb 2014 18:00:00 GMT). At this point the “last modified” attributes on the recently changed records are an hour old. The client that last called in at 17:15 will ask for changes since 17:15 the next time, but those changes that were applied with a 17:00 timestamp will be skipped for that client. This leads to very strange stale data issues that are difficult to debug.
+On the server side it’s also important to pay attention to the exact time that the “last modified” attribute gets set on the records. If there is any delay between when this value is set and that record is available to clients through the delta service, any clients calling in during this gap will miss changes. Say you decide to update records in a staging database and the "last modified” timestamp gets set there (Sat, 08 Feb 2014 17:00:00 GMT), meanwhile a client hits the service and receives a response with some changes (Last-Modified header Sat, 08 Feb 2014 17:15:00 GMT) then after the changes have been validated in the staging area they are moved out to the production database (Sat, 08 Feb 2014 18:00:00 GMT). At this point the “last modified” attributes on the recently changed records are an hour old. The client that last called in at 17:15 will ask for changes since 17:15 the next time, but those changes that were applied with a 17:00 timestamp will be skipped for that client. This leads to very strange stale data issues that are difficult to debug.
 
-An alternative to using dates is to use an integer version number. This strays from REST and requires the server to keep track of these versions. But, the server implementation could be as simple as a mapping of version numbers to dates which are then used to query against the “last modified” attribute of the records. Note that the point of version numbers would not be to support returning old version of the data. This is far more work as it requires storing snapshots of every version of every record, at least those versions that have changed. The point of this delta service is to quickly and efficiently update clients to the latest version of the data.
+An alternative to using dates is to use an integer version number. This strays from REST and requires the server to keep track of these numeric versions. But, the server implementation could be as simple as a mapping of version numbers to dates which are then used to query against the “last modified” attribute of the records. Note that the point of version numbers would not be to support returning old version of the data. This is far more work as it requires storing snapshots of every version of every record, at least those versions that have changed. The point of this delta service is to quickly and efficiently update clients to the latest version of the data.
 
