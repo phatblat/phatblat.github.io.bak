@@ -1,0 +1,49 @@
+<h2>found on</h2>
+{% if site.github_user %}
+<a href="https://github.com/{{site.github_user}}/" rel="tooltip" title="Github"><img class="social_icon" title="Github" alt="github icon" src="{{ root_url }}/images/glyphicons_381_github.png"></a>
+{% endif %}
+
+{% if site.stackoverflow_user %}
+<a href="http://stackoverflow.com/users/{{site.stackoverflow_user}}/" rel="tooltip" title="Stack Overflow"><img class="social_icon" title="Stack Overflow" alt="stack overflow icon" src="{{ root_url }}/images/glyphicons_400_stack_overflow.png"></a>
+{% endif %}
+
+{% if site.linkedin_user %}
+<a href="http://www.linkedin.com/{{site.linkedin_user}}" rel="tooltip" title="Linkedin"><img class="social_icon" title="Linkedin" alt="Linkedin icon" src="{{ root_url }}/images/glyphicons_377_linked_in.png"></a>
+{% endif %}
+
+{% if site.twitter_user %}
+<a href="http://twitter.com/{{site.twitter_user}}" rel="tooltip" title="Twitter"><img class="social_icon" title="Twitter" alt="Twitter icon" src="{{ root_url }}/images/glyphicons_391_twitter_t.png"></a>
+{% endif %}
+
+{% if site.vimeo_user %}
+<a href="http://vimeo.com/{{site.vimeo_user}}" rel="tooltip" title="Vimeo"><img class="social_icon" title="Vimeo" alt="Vimeo icon" src="{{ root_url }}/images/glyphicons_982_vimeo.png"></a>
+{% endif %}
+
+{% if site.500px_user %}
+<a href="http://500px.com/{{site.500px_user}}" rel="tooltip" title="500px"><img class="social_icon" title="500px" alt="500px icon" src="{{ root_url }}/images/glyphicons_980_500.png"></a>
+{% endif %}
+
+{% if site.360cities_user %}
+<a href="http://www.360cities.net/profile/{{site.360cities_user}}" rel="tooltip" title="360 Cities Panoramic Photography"><img class="social_icon" title="360 Cities" alt="360 Cities icon" src="{{ root_url }}/images/glyphicons_981_360cities.png"></a>
+{% endif %}
+
+{% if site.steam_user %}
+<a href="http://steamcommunity.com/id/{{site.steam_user}}" rel="tooltip" title="Steam"><img class="social_icon" title="Steam" alt="Steam icon" src="{{ root_url }}/images/glyphicons_983_steam.png"></a>
+{% endif %}
+
+{% if site.googleplus_user %}
+<a href="https://plus.google.com/{{site.googleplus_user}}?rel=author" rel="tooltip" title="Google Plus"><img class="social_icon" title="Google Plus" alt="Google Plus icon" src="{{ root_url }}/images/glyphicons_386_google_plus.png"></a>
+{% endif %}
+
+{% if site.quora_user %}
+<a href="http://www.quora.com/{{site.quora_user}}" rel="tooltip" title="Quora"><img class="social_icon" title="Quora" alt="Quora icon" src="{{ root_url }}/images/glyphicons_385_quora.png"></a>
+{% endif %}
+
+{% if site.facebook_user %}
+<a href="https://www.facebook.com/{{site.facebook_user}}" rel="tooltip" title="Facebook"><img class="social_icon" title="Facebook" alt="Facebook icon" src="{{root_url}}/images/fb.png"></a>
+{% endif %}
+
+{% if site.email %}
+<h2>contact at</h2>
+<a href="mailto:{{ site.email }}">{{ site.email }}</a>
+{% endif %}
