@@ -9,6 +9,8 @@ categories:
 
 A typical RESTful API is simple and intuitive to consume, but requires a lot of service calls in order to download a large dataset. This can be a problem in mobile when an app simply doesn’t have the time or the bandwidth to wait for all the service calls to finish collecting the dataset.
 
+<!-- more -->
+
 There are a few options to try to improve on this:
 
   1. Create a search service to return just the data that the client needs at the time
