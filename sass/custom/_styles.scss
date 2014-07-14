@@ -28,6 +28,6 @@ article.archive-article-format { box-shadow: none; padding: 0; }
 // Add a little horizontal space in dt elements
 .dl-horizontal dt { width: 135px; }
 
-#hero { background-image: url("/images/heroBack.png"); background-size: 100%; }
+#hero { background-image: url("/images/heroBack.png"); background-size: 100%; background-repeat: no-repeat; }
 
 #hero-inner { color: white; }
