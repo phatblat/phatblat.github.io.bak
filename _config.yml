@@ -2,11 +2,19 @@
 #      Main Configs       #
 # ----------------------- #
 
+<<<<<<< HEAD
 url: http://phatblat.com
 title: phatblat's reflog
 subtitle: a few SHAs from a journey through code
 author: Ben Chatelain
 simple_search: http://google.com/search
+=======
+url: http://yoursite.com
+title: My Octopress Blog
+subtitle: A blogging framework for hackers.
+author: Your Name
+simple_search: https://www.google.com/search
+>>>>>>> Default to HTTPS for google searches
 description:
 
 # Default date format is "ordinal" (resulting in "July 22nd 2007")
