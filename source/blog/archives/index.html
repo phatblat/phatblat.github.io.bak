@@ -1,6 +1,8 @@
 ---
 layout: page
+navbar: Archives
 title: Blog Archive
+footer: false
 ---
 
 <div id="blog-archives">
@@ -10,7 +12,7 @@ title: Blog Archive
   {% assign year = this_year %}
   <h2>{{ year }}</h2>
 {% endunless %}
-<article class="archive-article-format">
+<article class="page-header">
   {% include archive_post.html %}
 </article>
 {% endfor %}
