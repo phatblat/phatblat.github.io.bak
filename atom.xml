@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Ben Chatelain]]></title>
+  <title><![CDATA[phatblat's reflog]]></title>
   <link href="http://phatblat.com/atom.xml" rel="self"/>
   <link href="http://phatblat.com/"/>
-  <updated>2014-02-21T16:46:09-07:00</updated>
+  <updated>2014-07-14T22:05:35-06:00</updated>
   <id>http://phatblat.com/</id>
   <author>
     <name><![CDATA[Ben Chatelain]]></name>
@@ -19,6 +19,9 @@
     <updated>2014-02-20T20:59:10-07:00</updated>
     <id>http://phatblat.com/blog/2014/02/20/delta-service</id>
     <content type="html"><![CDATA[<p>A typical RESTful API is simple and intuitive to consume, but requires a lot of service calls in order to download a large dataset. This can be a problem in mobile when an app simply doesn’t have the time or the bandwidth to wait for all the service calls to finish collecting the dataset.</p>
+
+<!-- more -->
+
 
 <p>There are a few options to try to improve on this:</p>
 
