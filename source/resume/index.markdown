@@ -34,5 +34,7 @@ Few people know that Kaiser Permanente actually launched the Android version of 
 
 ## KP Locator
 
+Kaiser's first mobile app. I built a [delta service]({% post_url 2014-02-20-delta-service %})
+
 # Experience
 # Education
