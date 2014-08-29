@@ -1,0 +1,20 @@
+---
+layout: post
+title: "pod local"
+date: 2014-08-28 23:02:01 -0600
+comments: true
+categories: cocoapods
+---
+
+
+## Local :path vs. Remote Spec Repo
+
+This little --no-repo-update trick works great for pods you're working on which are specified via local :path in the `Podfile`.
+
+```
+pod 'Fetchable', :path => '../pods/Fetchable'
+```
+
+But, what about versions of the pod you want to test via a spec repo? If you're running your own private spec repo, you probably don't care because the `pod spec push` command first updates your local clone of the spec repo before pushing up the commits.
+
+Where this matters is when you're pushing to the public trunk. The best solution I've found (short of pushing your spec to the world before fully testing it) consists of simply creating your own sandbox spec repo.
