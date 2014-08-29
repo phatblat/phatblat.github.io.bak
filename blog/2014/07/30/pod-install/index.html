@@ -4,7 +4,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>phatblat's reflog</title>
+  <title>Speed up pod install - phatblat's reflog</title>
   <meta name="author" content="Ben Chatelain">
 
   
@@ -16,7 +16,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://phatblat.com">
+  <link rel="canonical" href="http://phatblat.com/blog/2014/07/30/pod-install">
   <link href="/favicon.png" type="image/png" rel="icon">
   <link href="/atom.xml" rel="alternate" title="phatblat's reflog" type="application/atom+xml">
 
@@ -92,12 +92,8 @@
         <div id="content">
           <div class="row">
   <div class="page-content col-md-9">
-    <div class="blog-index">
+    <article class="hentry" role="article">
       
-      
-      
-        <article class="post">
-          
   <header class="page-header">
     
       <p class="meta text-muted text-uppercase">
@@ -119,94 +115,103 @@
       </p>
     
     
-      <h1 class="entry-title"><a href="/blog/2014/07/30/pod-install/">Speed Up Pod Install</a></h1>
+    <h1 class="entry-title">
+        Speed Up Pod Install
+        
+    </h1>
     
   </header>
 
 
-  <div class="entry-content clearfix"><h2>pod install</h2>
+<div class="entry-content clearfix"><h2>pod install</h2>
 
 <p>If you use CocoaPods, you&rsquo;re familiar with the <code>pod install</code> command. Especially in the process of creating a pod, you end up running this command a lot. The annoying part is that there&rsquo;s a delay before it starts returning much output. This is where the pod gem reaches out to check to see if the specs have changed at all.</p>
 
 <p>Even when the pod version specifiers haven&rsquo;t changed, CocoaPods reaches out to fetch any updates to the <code>master</code> spec repo, along with any private spec repos that may be configured. During local development of a pod, this slows down the process unnecessarily as the only changes you care about are local to your hard drive.</p>
 
+<!-- more -->
+
+
+<h2>&mdash;no-repo-update</h2>
+
+<p>The <strong>&mdash;no-repo-update</strong> switch suppresses this spec repo update and speeds up the install command considerably.</p>
+
+<p>Since that is way too much to type for such a common command to fly across my terminal, I like to wrap these up in a nice, short <a href="https://github.com/phatblat/dotfiles/blob/master/.dotfiles/shell/alias.zsh#L31">alias</a>.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>alias pi='pod install --no-repo-update'</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now, you don&rsquo;t want to use this alias every time you need to do a <code>pod install</code> as your <code>master</code> spec repo would get out of date and you could miss important updates.</p>
 </div>
-  
-  
-    <footer>
-      <a class="btn btn-default" rel="full-article" href="/blog/2014/07/30/pod-install/">Read on &rarr;</a>
-    </footer>
-  
 
 
-        </article>
-      
-      
-        <article class="post">
+      <footer>
+        <p class="meta text-muted">
           
-  <header class="page-header">
-    
-      <p class="meta text-muted text-uppercase">
+  
+
+<span class="glyphicon glyphicon-user"></span> <span class="byline author vcard">Posted by <span class="fn">Ben Chatelain</span></span>
+
+          
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-07-30T22:30:54-06:00" pubdate data-updated="true">Jul 30<sup>th</sup>, 2014</time>
+          
+
+<span class="glyphicon glyphicon-tags"></span>&nbsp;
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/cocoapods/'>cocoapods</a>, <a class='category' href='/blog/categories/shell/'>shell</a>
+  
+</span>
+
+
+        </p>
         
-
-
-
-
-
-
-
-
-
-
-
-
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-02-20T20:59:10-07:00" pubdate data-updated="true">Feb 20<sup>th</sup>, 2014</time>
-        
-      </p>
-    
-    
-      <h1 class="entry-title"><a href="/blog/2014/02/20/delta-service/">Delta Service for Mobile Apps</a></h1>
-    
-  </header>
-
-
-  <div class="entry-content clearfix"><p>A typical RESTful API is simple and intuitive to consume, but requires a lot of service calls in order to download a large dataset. This can be a problem in mobile when an app simply doesn’t have the time or the bandwidth to wait for all the service calls to finish collecting the dataset.</p>
-
+          <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://phatblat.com/blog/2014/07/30/pod-install/" data-via="phatblat" data-counturl="http://phatblat.com/blog/2014/07/30/pod-install/" >Tweet</a>
+  
+  
+  
 </div>
-  
-  
-    <footer>
-      <a class="btn btn-default" rel="full-article" href="/blog/2014/02/20/delta-service/">Read on &rarr;</a>
-    </footer>
-  
 
-
-        </article>
-      
-    </div>
-
-    <ul class="pager">
-      
-        <li class="previous disabled"><a href="#">&larr;&nbsp;Older</a></li>
-      
-      <li><a href="/blog/archives">Blog Archives</a></li>
-      
-        <li class="next disabled"><a href="#">Newer&nbsp;&rarr;</a></li>
-      
-    </ul>
+        
+        
+          <ul class="meta text-muted pager">
+            
+            <li class="previous"><a href="/blog/2014/02/20/delta-service/" title="Previous Post: Delta Service for Mobile Apps">&laquo; Delta Service for Mobile Apps</a></li>
+            
+            
+          </ul>
+        
+      </footer>
+    </article>
+    
   </div>
 
   
-    <aside class="sidebar col-md-3">
-      
-        <section class="panel panel-default">
+  <aside class="sidebar col-md-3">
+    
+      <section class="panel panel-default">
   <div class="panel-heading">
     <h3 class="panel-title">Recent Posts</h3>
   </div>
   
   <div id="recent_posts" class="list-group">
     
-    <a class="list-group-item " href="/blog/2014/07/30/pod-install/">Speed Up Pod Install</a>
+    <a class="list-group-item active" href="/blog/2014/07/30/pod-install/">Speed Up Pod Install</a>
     
     <a class="list-group-item " href="/blog/2014/02/20/delta-service/">Delta Service for Mobile Apps</a>
     
@@ -218,7 +223,7 @@
       <h3 class="panel-title">GitHub Repos</h3>
   </div>
   <div class="list-group" id="gh_repos">
-    <p class="loading">Status updating&#8230;</p>
+    <p class="loading">Status updating...</p>
   </div>
   
     <div class="gh-profile-link pull-right text-muted">
@@ -253,7 +258,7 @@
     <h3 class="panel-title">My Pinboard</h3>
   </div>
   <div class="panel-body">
-    <ul id="pinboard_linkroll">Fetching linkroll&#8230;</ul>
+    <ul id="pinboard_linkroll">Fetching linkroll...</ul>
     <p><a href="http://pinboard.in/u:phatblat">My Pinboard Bookmarks &raquo;</a></p>
   </div>
 </section>
@@ -273,8 +278,8 @@
 
 
 
-      
-    </aside>
+    
+  </aside>
   
 </div>
 

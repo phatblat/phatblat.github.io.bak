@@ -4,7 +4,7 @@
   <title><![CDATA[phatblat's reflog]]></title>
   <link href="http://phatblat.com/atom.xml" rel="self"/>
   <link href="http://phatblat.com/"/>
-  <updated>2014-07-14T22:17:07-06:00</updated>
+  <updated>2014-08-28T22:53:37-06:00</updated>
   <id>http://phatblat.com/</id>
   <author>
     <name><![CDATA[Ben Chatelain]]></name>
@@ -12,6 +12,34 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Speed up pod install]]></title>
+    <link href="http://phatblat.com/blog/2014/07/30/pod-install/"/>
+    <updated>2014-07-30T22:30:54-06:00</updated>
+    <id>http://phatblat.com/blog/2014/07/30/pod-install</id>
+    <content type="html"><![CDATA[<h2>pod install</h2>
+
+<p>If you use CocoaPods, you&rsquo;re familiar with the <code>pod install</code> command. Especially in the process of creating a pod, you end up running this command a lot. The annoying part is that there&rsquo;s a delay before it starts returning much output. This is where the pod gem reaches out to check to see if the specs have changed at all.</p>
+
+<p>Even when the pod version specifiers haven&rsquo;t changed, CocoaPods reaches out to fetch any updates to the <code>master</code> spec repo, along with any private spec repos that may be configured. During local development of a pod, this slows down the process unnecessarily as the only changes you care about are local to your hard drive.</p>
+
+<!-- more -->
+
+
+<h2>&mdash;no-repo-update</h2>
+
+<p>The <strong>&mdash;no-repo-update</strong> switch suppresses this spec repo update and speeds up the install command considerably.</p>
+
+<p>Since that is way too much to type for such a common command to fly across my terminal, I like to wrap these up in a nice, short <a href="https://github.com/phatblat/dotfiles/blob/master/.dotfiles/shell/alias.zsh#L31">alias</a>.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>alias pi='pod install --no-repo-update'</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now, you don&rsquo;t want to use this alias every time you need to do a <code>pod install</code> as your <code>master</code> spec repo would get out of date and you could miss important updates.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Delta Service for Mobile Apps]]></title>
