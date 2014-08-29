@@ -8,34 +8,23 @@ categories: cocoapods shell
 
 ## pod install
 
-If you have created a podspec or two, you've probably ran `pod install` alot. Even those that only run it occasionally may have noticed that there's a delay before it starts returning much output.
+If you use CocoaPods, you're familiar with the `pod install` command. Especially in the process of creating a pod, you end up running this command a lot. The annoying part is that there's a delay before it starts returning much output. This is where the pod gem reaches out to check to see if the specs have changed at all.
 
-Even when you haven't changed any version specifiers for your dependencies, CocoaPods reaches out to fetch any changes to the `master` spec repo. During local development of a pod, this slows down the process unnecessarily as the only changes you care about are local to your hard drive.
+Even when the pod version specifiers haven't changed, CocoaPods reaches out to fetch any updates to the `master` spec repo, along with any private spec repos that may be configured. During local development of a pod, this slows down the process unnecessarily as the only changes you care about are local to your hard drive.
 
 <!-- more -->
 
 ## --no-repo-update
 
-The `pod install --help` command shows a few options, including **--no-repo-update** which suppresses the spec repo update and speeds up the install command.
+The **--no-repo-update** switch suppresses this spec repo update and speeds up the install command considerably.
 
-Since that is way too much to type for a very common command.
+Since that is way too much to type for such a common command to fly across my terminal, I like to wrap these up in a nice, short alias.
 
 ```
 alias pi='pod install --no-repo-update'
 ```
 
-Obviously, you don't want to use this alias every time you need to do a `pod install` as your `master` spec repo would get out of date.
+Now, you don't want to use this alias every time you need to do a `pod install` as your `master` spec repo would get out of date and you could miss important updates.
 
-## Local :path vs. Remote Spec Repo
-
-This works great for pods you're working on which are specified via local :path in the `Podfile`.
-
-```
-pod 'Fetchable', :path => '../pods/Fetchable'
-```
-
-But, what about versions of the pod you want to test via a spec repo? If you're running your own private spec repo, you probably don't care because the `pod spec push` command first updates your local clone of the spec repo before pushing up the commits.
-
-Where this matters is when you're pushing to the public trunk. The best solution I've found (short of pushing your spec to the world before fully testing it) consists of simply creating your own sandbox spec repo.
 
 
