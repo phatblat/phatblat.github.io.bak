@@ -3,6 +3,7 @@ layout: post
 title: "Speed up pod install"
 date: 2014-07-30 22:30:54 -0600
 comments: true
+published: true
 categories: cocoapods shell
 ---
 
@@ -18,7 +19,7 @@ Even when the pod version specifiers haven't changed, CocoaPods reaches out to f
 
 The **--no-repo-update** switch suppresses this spec repo update and speeds up the install command considerably.
 
-Since that is way too much to type for such a common command to fly across my terminal, I like to wrap these up in a nice, short alias.
+Since that is way too much to type for such a common command to fly across my terminal, I like to wrap these up in a nice, short [alias](https://github.com/phatblat/dotfiles/blob/master/.dotfiles/shell/alias.zsh#L31).
 
 ```
 alias pi='pod install --no-repo-update'
