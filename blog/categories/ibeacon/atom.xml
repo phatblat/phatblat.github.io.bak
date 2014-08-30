@@ -4,7 +4,7 @@
   <title><![CDATA[Category: ibeacon | phatblat's reflog]]></title>
   <link href="http://phatblat.com/blog/categories/ibeacon/atom.xml" rel="self"/>
   <link href="http://phatblat.com/"/>
-  <updated>2014-08-30T14:43:41-06:00</updated>
+  <updated>2014-08-30T14:54:57-06:00</updated>
   <id>http://phatblat.com/</id>
   <author>
     <name><![CDATA[Ben Chatelain]]></name>
@@ -31,7 +31,7 @@
 
 <h1>Battery Drain</h1>
 
-<p>First off, whenever you&rsquo;re not using your Particle, I suggest pulling the battery out or inserting something to prevent the flow of current. There&rsquo;s no &ldquo;off&rdquo; switch and the device will continually broadcast its iBeacon signal dilligently every second until the battery runs out of juice (about a month). The CR2032 coin cell batteries are cheap and easy to find, but you might as well save yourself the trouble and prevent the battery from draining when you&rsquo;re not using the device.</p>
+<p>First off, whenever you&rsquo;re not using your Particle, I suggest pulling the battery out or inserting something to prevent the flow of current. There&rsquo;s no &ldquo;off&rdquo; switch and the device will continually broadcast its iBeacon signal dilligently every 100 milliseconds (default rate) until the battery runs out of juice (40 days, according to the <a href="https://itunes.apple.com/us/app/particle-calculator/id909745776?mt=8">Particle Calculator</a> app). The CR2032 coin cell batteries are cheap and easy to find, but you might as well save yourself the trouble and prevent the battery from draining when you&rsquo;re not using the device.</p>
 
 <h2>Battery Removal</h2>
 
@@ -78,7 +78,7 @@
 
 <h2>UUID</h2>
 
-<blockquote><p>NOTE: As of version 2.1.1, the Set UUID screen <em>always</em> sets the UUID when you tap the &ldquo;Done&rdquo; button; there is no way to cancel (except to kill the app). So, only tap on the UUID on the configuration screen if you intend to change it.</p></blockquote>
+<blockquote><p>NOTE: As of version 2.1.1, the Set UUID screen <em>always</em> sets the UUID when you tap the &ldquo;Done&rdquo; button; there is no way to cancel, besides killing the app. So, only tap on the UUID on the configuration screen if you intend to change it.</p></blockquote>
 
 <p>The UUID essentially defines a group of iBeacons. In the CoreLocation API, each <code>CLBeaconRegion</code> is identified by the UUID, and there can be many iBeacons in each region. It is also possible to monitor for multiple beacon regions at the same time.</p>
 
