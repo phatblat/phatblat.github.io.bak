@@ -59,6 +59,8 @@ You can change the password once the current password is accepted. A blank passw
 
 ## UUID
 
+> NOTE: As of version 2.1.1, the Set UUID screen _always_ sets the UUID when you tap the "Done" button; there is no way to cancel, besides killing the app. So, only tap on the UUID on the configuration screen if you intend to change it.
+
 The UUID essentially defines a group of iBeacons. In the CoreLocation API, each `CLBeaconRegion` is identified by the UUID, and there can be many iBeacons in each region. It is also possible to monitor for multiple beacon regions at the same time.
 
 The Particles given out at 360|iDev all have their UUID set to **7D65B622-4AA8-4560-914C-502BE940BC16**. You can change this if you want. One of the UUIDs used by the AirLocate app (see below) is already in the list (E2C56DB5-DFFB-48D2-B060-D0F5A71096E0), so you can simply select this if you're wanting to test.
