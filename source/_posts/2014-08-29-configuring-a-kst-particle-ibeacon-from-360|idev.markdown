@@ -19,7 +19,7 @@ Everyone who attended this year's [360|iDev](http://360idev.com) in Denver was g
 
 # Battery Drain
 
-First off, whenever you're not using your Particle, I suggest pulling the battery out or inserting something to prevent the flow of current. There's no "off" switch and the device will continually broadcast its iBeacon signal dilligently every second until the battery runs out of juice (about a month). The CR2032 coin cell batteries are cheap and easy to find, but you might as well save yourself the trouble and prevent the battery from draining when you're not using the device.
+First off, whenever you're not using your Particle, I suggest pulling the battery out or inserting something to prevent the flow of current. There's no "off" switch and the device will continually broadcast its iBeacon signal dilligently every 100 milliseconds (default rate) until the battery runs out of juice (40 days, according to the [Particle Calculator](https://itunes.apple.com/us/app/particle-calculator/id909745776?mt=8) app). The CR2032 coin cell batteries are cheap and easy to find, but you might as well save yourself the trouble and prevent the battery from draining when you're not using the device.
 
 ## Battery Removal
 
