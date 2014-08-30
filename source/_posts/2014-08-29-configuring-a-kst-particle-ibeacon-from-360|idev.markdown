@@ -11,10 +11,6 @@ Everyone who attended this year's [360|iDev](http://360idev.com) in Denver was g
 
 ### tl;dr
 
-> The password on the iBeacons from  uses the following scheme: **360iDev999**
-> where "999" is the number on the back of the shell.
-
-
 > The password scheme for the Particles given out at 360|iDev is: **360iDev123** — where _123_ is the number on the back.
 
 <!-- more -->
@@ -46,15 +42,13 @@ Before going forward, you'll need the following:
 
 # Configuration
 
-Launch the Particle Accelerator app and tap the toggle switch in the upper right corner to enable scanning.
+{% img right /images/particle_accelerator.png 320 'Particle Accelerator app' 'an image of the Particle Accelerator app showing my device' %}
 
-{% img /images/particle_accelerator.png %}
-
-Once your Particle appears, tap on it to bring up the configuration screen. 
+Launch the Particle Accelerator app and tap the toggle switch in the upper right corner to enable scanning. Once your Particle appears, tap on it to bring up the configuration screen.
 
 ## Password
 
-> The password scheme for these Particles is: **360iDev123** — where 123 is the number on the back.
+The password scheme for the Particles given out at 360|iDev is: **360iDev123** — where _123_ is the number on the back.
 
 The number on my Particle is 57, so the password to configure it was 360iDev57 (no leading zeros).
 
