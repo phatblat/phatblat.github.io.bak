@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 360idev | phatblat's reflog]]></title>
   <link href="http://phatblat.com/blog/categories/360idev/atom.xml" rel="self"/>
   <link href="http://phatblat.com/"/>
-  <updated>2014-08-30T14:19:21-06:00</updated>
+  <updated>2014-08-30T14:43:41-06:00</updated>
   <id>http://phatblat.com/</id>
   <author>
     <name><![CDATA[Ben Chatelain]]></name>
@@ -77,6 +77,8 @@
 <p>You can change the password once the current password is accepted. A blank password is allowed and does make it easier to use the app since you will be asked for the password each time you connect to the Particle. However, if you set a blank password, remember to either set a real password when your done or remove the battery. Anyone else with the Particle Accelerator app could muck with your new Particle if you forget.</p>
 
 <h2>UUID</h2>
+
+<blockquote><p>NOTE: As of version 2.1.1, the Set UUID screen <em>always</em> sets the UUID when you tap the &ldquo;Done&rdquo; button; there is no way to cancel (except to kill the app). So, only tap on the UUID on the configuration screen if you intend to change it.</p></blockquote>
 
 <p>The UUID essentially defines a group of iBeacons. In the CoreLocation API, each <code>CLBeaconRegion</code> is identified by the UUID, and there can be many iBeacons in each region. It is also possible to monitor for multiple beacon regions at the same time.</p>
 
