@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Configuring a KST Particle: iBeacon from 360|iDev - phatblat's reflog</title>
+  <meta name="author" content="Ben Chatelain">
+
+  
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://phatblat.com/blog/2014/08/29/configuring-a-kst-particle-ibeacon-from-360%7Cidev">
+  <link href="/favicon.png" type="image/png" rel="icon">
+  <link href="/atom.xml" rel="alternate" title="phatblat's reflog" type="application/atom+xml">
+
+  <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="/assets/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
+<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+
+  <script src="/javascripts/libs/jquery/jquery-2.0.3.min.js"></script>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-48315729-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+  <body   >
+    <div id="wrap">
+      <header role="banner">
+        <nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">phatblat's reflog</a>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="active">
+                    <a href="/">blog</a>
+                </li>
+                <li >
+                    <a href="/blog/archives">archives</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a class="subscribe-rss" href="/atom.xml" title="subscribe via RSS">
+                        <span class="visible-xs">RSS</span>
+                        <img class="hidden-xs" src="/images/rss.png" alt="RSS">
+                    </a>
+                </li>
+                
+            </ul>
+            
+                <form class="search navbar-form navbar-right" action="http://google.com/search" method="GET">
+                    <input type="hidden" name="q" value="site:phatblat.com">
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="q" placeholder="Search">
+                    </div>
+                </form>
+            
+        </div>
+    </div>
+</nav>
+
+
+      </header>
+      <div id="main" class="container">
+        <div id="content">
+          <div class="row">
+  <div class="page-content col-md-9">
+    <article class="hentry" role="article">
+      
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-08-29T21:43:46-06:00" pubdate data-updated="true">Aug 29<sup>th</sup>, 2014</time>
+        
+      </p>
+    
+    
+    <h1 class="entry-title">
+        Configuring a KST Particle: iBeacon From 360|iDev
+        
+    </h1>
+    
+  </header>
+
+
+<div class="entry-content clearfix"><p><img class="right" src="/images/particle_back.jpg" width="150" title="Particle iBeacon" alt="an image of a Particle device showing a number on the back"></p>
+
+<p>Everyone who attended this year&rsquo;s <a href="http://360idev.com">360|iDev</a> in Denver was given a <a href="https://kstechnologies.com/particle/">Particle</a> from KS Technologies. These are simple looking iBeacon devices that are fully configurable via KST&rsquo;s <a href="https://itunes.apple.com/us/app/particle-accelerator/id727105504?mt=8">Particle Accelerator</a> app. KST also posted about this <a href="https://kstechnologies.com/free-360idev-ibeacon/">awesome giveaway</a> on their blog.</p>
+
+<h3>tl;dr</h3>
+
+<blockquote><p>The password scheme for the Particles given out at 360|iDev is: <strong>360iDev123</strong> — where <em>123</em> is the number on the back.</p></blockquote>
+
+<!-- more -->
+
+
+<h1>Battery Drain</h1>
+
+<p>First off, whenever you&rsquo;re not using your Particle, I suggest pulling the battery out or inserting something to prevent the flow of current. There&rsquo;s no &ldquo;off&rdquo; switch and the device will continually broadcast its iBeacon signal dilligently every second until the battery runs out of juice (about a month). The CR2032 coin cell batteries are cheap and easy to find, but you might as well save yourself the trouble and prevent the battery from draining when you&rsquo;re not using the device.</p>
+
+<h2>Battery Removal</h2>
+
+<p>Taking out the battery is easy. The case is best opened with a Chuck E. Cheese token, but in a pinch a quarter, lightning connector, flat-head screwdriver or even a keyring works too. Just insert in the slot on the top and twist until the shell pops. The plastic shell is easily scratched, but that only affects your opinion of the device &ndash; not the performance.</p>
+
+<p>After you pop the top off, use a pen to push the coin battery down toward the less-round end.</p>
+
+<p>When you put the battery back in, the positive (+) side goes up.</p>
+
+<p><img src="/images/particle_opening_slot.png" width="200" title="Particle shell opening slot" alt="an image of opening the Particle using a coin">
+<img src="/images/particle_battery.jpg" width="200" title="Particle battery removal" alt="an image of the Particle battery being removed">
+<img src="/images/particle_open.jpg" width="200" title="Particle open with battery out" alt="an image of the Particle internals"></p>
+
+<h1>Config Prep</h1>
+
+<p>Before continuing, you&rsquo;ll need the following:</p>
+
+<ul>
+<li>iOS device with 7.0+ and BLE
+
+<ul>
+<li>YES: iPhone 4s/5/5s/5c, iPad &frac34;/mini/Air, iPod &ldquo;tall&rdquo; (touch 5th gen)</li>
+<li>NO: iPhone 4, iPad 2, iPod touch 4th gen</li>
+</ul>
+</li>
+<li>the <a href="https://itunes.apple.com/us/app/particle-accelerator/id727105504?mt=8">Particle Accelerator</a> app</li>
+<li>Bluetooth enabled</li>
+</ul>
+
+
+<h1>Configuration</h1>
+
+<p><img class="right" src="/images/particle_accelerator_app.png" width="200" title="Particle Accelerator app" alt="an image of the Particle Accelerator app showing my device"></p>
+
+<p>Launch the Particle Accelerator app and tap the toggle switch in the upper right corner to enable scanning. Once your Particle appears, tap on it to bring up the configuration screen.</p>
+
+<h2>Password</h2>
+
+<p>The password scheme for the Particles given out at 360|iDev is: <strong>360iDev123</strong> — where <em>123</em> is the number on the back.</p>
+
+<p>The number on the back of my Particle is 57, so the initial password to configure it was 360iDev57 (no leading zeros).</p>
+
+<p>You can change the password once the current password is accepted. A blank password is allowed and does make it easier to use the app since you will be asked for the password each time you connect to the Particle. However, if you set a blank password, remember to either set a real password when your done or remove the battery. Anyone else with the Particle Accelerator app could muck with your new Particle if you forget.</p>
+
+<h2>UUID</h2>
+
+<p>The UUID essentially defines a group of iBeacons. In the CoreLocation API, each <code>CLBeaconRegion</code> is identified by the UUID, and there can be many iBeacons in each region. It is also possible to monitor for multiple beacon regions at the same time.</p>
+
+<p>The Particles given out at 360|iDev all have their UUID set to <strong>7D65B622-4AA8-4560-914C-502BE940BC16</strong>. You can change this if you want. One of the UUIDs used by the AirLocate app (see below) is already in the list (E2C56DB5-DFFB-48D2-B060-D0F5A71096E0), so you can simply select this if you&rsquo;re wanting to test.</p>
+
+<p>You can also give your Particle a unique UUID. On your mac, the <code>uuidgen</code> terminal command will generate a new UUID.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ uuidgen                                                                                            
+</span><span class='line'>30FDAAFB-C585-4DA5-81F9-2CA293EFCF93</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Major &amp; Minor Numbers</h2>
+
+<p>Within a single <code>CLBeaconRegion</code>, individual <code>CLBeacon</code> instances are identified by unique combinations of the <code>major</code> and <code>minor</code> numbers. The Particles from 360|iDev all have a <code>major</code> value of 1 and unique <code>minor</code> numbers that correspond to the number printed on the back of the shell.</p>
+
+<h1>Testing your Particle</h1>
+
+<p><img class="right" src="/images/particle_detector_app.png" width="170" title="Particle Detector app" alt="an image of the Particle Detector app showing my device"></p>
+
+<h2>Particle Detector</h2>
+
+<p><a href="https://itunes.apple.com/us/app/particle-detector/id724226138?mt=8">https://itunes.apple.com/us/app/particle-detector/id724226138?mt=8</a></p>
+
+<p>This free app from KST shows you details about any Particles that are nearby. It can only monitor one region UUID at a time, so it&rsquo;s easiest if you copy the UUID string from your browser and paste it into the filter screen. Then, make sure to select the UUID.</p>
+
+<h2>AirLocate</h2>
+
+<p><a href="https://developer.apple.com/LIBRARY/ios/samplecode/AirLocate/Introduction/Intro.html">https://developer.apple.com/LIBRARY/ios/samplecode/AirLocate/Introduction/Intro.html</a></p>
+
+<p>This sample app was released at WWDC 2013 for testing iBeacons.</p>
+
+<p><img class="right" src="/images/roygbeacon.png" width="170" title="RoyGBeacon app" alt="an image of Roy G. Beacon app with a red background showing my device"></p>
+
+<h2>RoyGBeacon</h2>
+
+<p><a href="https://github.com/phatblat/RoyGBeacon">https://github.com/phatblat/RoyGBeacon</a></p>
+
+<p>I created a simple app which changes the background color of the screen from gray to red depending on how close you are to an iBeacon. This app will work with any brand of iBeacon, but you may need to <a href="https://github.com/phatblat/RoyGBeacon/blob/master/RoyGBeacon/RGBMainViewController.m#L41">modify the source</a> to add the UUID of your beacon (the AirLocate and 360|iDev UUIDs are included).</p>
+
+<h2>BTLExplorer</h2>
+
+<p><a href="https://itunes.apple.com/us/app/btlexplorer/id532751145?mt=8">https://itunes.apple.com/us/app/btlexplorer/id532751145?mt=8</a></p>
+
+<p>Another app from KST. This one is a general discovery app for any Bluetooth device. Useful for monitoring signal strength and determining whether there is a problem at the hardware level (usually battery).</p>
+</div>
+
+
+      <footer>
+        <p class="meta text-muted">
+          
+  
+
+<span class="glyphicon glyphicon-user"></span> <span class="byline author vcard">Posted by <span class="fn">Ben Chatelain</span></span>
+
+          
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-08-29T21:43:46-06:00" pubdate data-updated="true">Aug 29<sup>th</sup>, 2014</time>
+          
+
+<span class="glyphicon glyphicon-tags"></span>&nbsp;
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/360idev/'>360idev</a>, <a class='category' href='/blog/categories/ibeacon/'>ibeacon</a>
+  
+</span>
+
+
+        </p>
+        
+          <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://phatblat.com/blog/2014/08/29/configuring-a-kst-particle-ibeacon-from-360%7Cidev/" data-via="phatblat" data-counturl="http://phatblat.com/blog/2014/08/29/configuring-a-kst-particle-ibeacon-from-360%7Cidev/" >Tweet</a>
+  
+  
+  
+</div>
+
+        
+        
+          <ul class="meta text-muted pager">
+            
+            <li class="previous"><a href="/blog/2014/07/30/pod-install/" title="Previous Post: Speed up pod install">&laquo; Speed up pod install</a></li>
+            
+            
+          </ul>
+        
+      </footer>
+    </article>
+    
+  </div>
+
+  
+  <aside class="sidebar col-md-3">
+    
+      <section class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Recent Posts</h3>
+  </div>
+  
+  <div id="recent_posts" class="list-group">
+    
+    <a class="list-group-item active" href="/blog/2014/08/29/configuring-a-kst-particle-ibeacon-from-360%7Cidev/">Configuring a KST Particle: iBeacon From 360|iDev</a>
+    
+    <a class="list-group-item " href="/blog/2014/07/30/pod-install/">Speed Up Pod Install</a>
+    
+    <a class="list-group-item " href="/blog/2014/02/20/delta-service/">Delta Service for Mobile Apps</a>
+    
+  </div>
+</section>
+
+<section class="panel panel-default clearfix">
+  <div class="panel-heading">
+      <h3 class="panel-title">GitHub Repos</h3>
+  </div>
+  <div class="list-group" id="gh_repos">
+    <p class="loading">Status updating...</p>
+  </div>
+  
+    <div class="gh-profile-link pull-right text-muted">
+      <a href="https://github.com/phatblat">@phatblat</a> on GitHub
+    </div>
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'phatblat',
+            count: 5,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+<section class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">My Pinboard</h3>
+  </div>
+  <div class="panel-body">
+    <ul id="pinboard_linkroll">Fetching linkroll...</ul>
+    <p><a href="http://pinboard.in/u:phatblat">My Pinboard Bookmarks &raquo;</a></p>
+  </div>
+</section>
+<script type="text/javascript">
+  var linkroll = 'pinboard_linkroll'; //id target for pinboard list
+  var pinboard_user = "phatblat"; //id target for pinboard list
+  var pinboard_count = 5; //id target for pinboard list
+  (function(){
+    var pinboardInit = document.createElement('script');
+    pinboardInit.type = 'text/javascript';
+    pinboardInit.async = true;
+    pinboardInit.src = '/javascripts/pinboard.js';
+    document.getElementsByTagName('head')[0].appendChild(pinboardInit);
+  })();
+</script>
+
+
+
+
+    
+  </aside>
+  
+</div>
+
+        </div>
+      </div>
+    </div>
+    <footer role="contentinfo"><div class="container">
+    <p class="text-muted credits">
+  Copyright &copy; 2014 - Ben Chatelain<br>
+  <small>
+      <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>,
+      <span class="credit">customized with <a href="https://github.com/kAworu/octostrap3">octostrap3</a></span>.
+  </small>
+</p>
+
+</div>
+</footer>
+    <script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/javascripts/modernizr-2.0.js"></script>
+
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+  </body>
+</html>

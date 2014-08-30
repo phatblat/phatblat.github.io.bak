@@ -4,7 +4,7 @@
   <title><![CDATA[Category: cocoapods | phatblat's reflog]]></title>
   <link href="http://phatblat.com/blog/categories/cocoapods/atom.xml" rel="self"/>
   <link href="http://phatblat.com/"/>
-  <updated>2014-08-29T18:23:13-06:00</updated>
+  <updated>2014-08-30T14:19:21-06:00</updated>
   <id>http://phatblat.com/</id>
   <author>
     <name><![CDATA[Ben Chatelain]]></name>
@@ -56,7 +56,7 @@ Updating spec repo <code>master</code>
 alias pi='pod install --no-repo-update'
 </code></p>
 
-<p>Another situation where suppressing this automatic spec repo update is when you have unreliable or no network connection.</p>
+<p>Another situation where suppressing this automatic spec repo update is helpful is when you have unreliable or no network connection. The spec repo update is going to fail anyway.</p>
 
 <p>Now, you don&rsquo;t want to use this alias every time you need to do a <code>pod install</code> as your <code>master</code> spec repo would get out of date and you could miss important updates. In general, I allow <code>pod install</code> or <code>pod update</code> to update my spec repos the first time I run them on any given day and suppress the repo update the rest of the day.</p>
 ]]></content>
