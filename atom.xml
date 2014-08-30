@@ -4,7 +4,7 @@
   <title><![CDATA[phatblat's reflog]]></title>
   <link href="http://phatblat.com/atom.xml" rel="self"/>
   <link href="http://phatblat.com/"/>
-  <updated>2014-08-28T22:53:37-06:00</updated>
+  <updated>2014-08-29T18:23:13-06:00</updated>
   <id>http://phatblat.com/</id>
   <author>
     <name><![CDATA[Ben Chatelain]]></name>
@@ -18,11 +18,49 @@
     <link href="http://phatblat.com/blog/2014/07/30/pod-install/"/>
     <updated>2014-07-30T22:30:54-06:00</updated>
     <id>http://phatblat.com/blog/2014/07/30/pod-install</id>
-    <content type="html"><![CDATA[<h2>pod install</h2>
-
-<p>If you use CocoaPods, you&rsquo;re familiar with the <code>pod install</code> command. Especially in the process of creating a pod, you end up running this command a lot. The annoying part is that there&rsquo;s a delay before it starts returning much output. This is where the pod gem reaches out to check to see if the specs have changed at all.</p>
+    <content type="html"><![CDATA[<p>If you use CocoaPods, you&rsquo;re familiar with the <code>pod install</code> command. Especially in the process of creating a pod, you end up running this command a lot. The annoying part is that there&rsquo;s a delay before it starts returning much output. This is where the pod gem reaches out to check to see if the specs have changed at all.</p>
 
 <p>Even when the pod version specifiers haven&rsquo;t changed, CocoaPods reaches out to fetch any updates to the <code>master</code> spec repo, along with any private spec repos that may be configured. During local development of a pod, this slows down the process unnecessarily as the only changes you care about are local to your hard drive.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ pod install --verbose
+</span><span class='line'>
+</span><span class='line'>Analyzing dependencies
+</span><span class='line'>
+</span><span class='line'>Updating spec repositories
+</span><span class='line'>  $ /usr/local/bin/git rev-parse  &gt;/dev/null 2&gt;&1
+</span><span class='line'>  $ /usr/local/bin/git ls-remote
+</span><span class='line'>  From https://github.com/CocoaPods/Specs.git
+</span><span class='line'>  f83cbf438a0f80b7df76534ffa08efcb359ce982    HEAD
+</span><span class='line'>  f83cbf438a0f80b7df76534ffa08efcb359ce982    refs/heads/master
+</span><span class='line'>  fe7df26fe5545072c11abac241d73087a29e87d9    refs/pull/1/head
+</span><span class='line'>  1748dab37fe08120775777a084e0fb9da10c4a63    refs/pull/1/merge
+</span><span class='line'>  ...
+</span><span class='line'>  5a7c7be28f0859865035c324e625c507cf858f4a  refs/pull/9998/head
+</span><span class='line'>  7a19ff8bfbaf00a485ca2274a229205d715dcbf7  refs/pull/9999/head
+</span><span class='line'>Updating spec repo `master`
+</span><span class='line'>  $ /usr/local/bin/git pull --ff-only
+</span><span class='line'>  ...yawn...</span></code></pre></td></tr></table></div></figure>
+
+
+
 
 <!-- more -->
 
@@ -37,7 +75,9 @@
 </pre></td><td class='code'><pre><code class=''><span class='line'>alias pi='pod install --no-repo-update'</span></code></pre></td></tr></table></div></figure>
 
 
-<p>Now, you don&rsquo;t want to use this alias every time you need to do a <code>pod install</code> as your <code>master</code> spec repo would get out of date and you could miss important updates.</p>
+<p>Another situation where suppressing this automatic spec repo update is when you have unreliable or no network connection.</p>
+
+<p>Now, you don&rsquo;t want to use this alias every time you need to do a <code>pod install</code> as your <code>master</code> spec repo would get out of date and you could miss important updates. In general, I allow <code>pod install</code> or <code>pod update</code> to update my spec repos the first time I run them on any given day and suppress the repo update the rest of the day.</p>
 ]]></content>
   </entry>
   
