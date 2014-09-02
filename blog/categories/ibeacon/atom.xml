@@ -4,7 +4,7 @@
   <title><![CDATA[Category: ibeacon | phatblat's reflog]]></title>
   <link href="http://phatblat.com/blog/categories/ibeacon/atom.xml" rel="self"/>
   <link href="http://phatblat.com/"/>
-  <updated>2014-08-30T14:54:57-06:00</updated>
+  <updated>2014-09-02T09:26:27-06:00</updated>
   <id>http://phatblat.com/</id>
   <author>
     <name><![CDATA[Ben Chatelain]]></name>
@@ -74,7 +74,7 @@
 
 <p>The number on the back of my Particle is 57, so the initial password to configure it was 360iDev57 (no leading zeros).</p>
 
-<p>You can change the password once the current password is accepted. A blank password is allowed and does make it easier to use the app since you will be asked for the password each time you connect to the Particle. However, if you set a blank password, remember to either set a real password when your done or remove the battery. Anyone else with the Particle Accelerator app could muck with your new Particle if you forget.</p>
+<p>You can change the password once the current password is accepted. A blank password is allowed and does make it easier to use the app since you will be asked for the password each time you connect to the Particle. However, if you set a blank password, remember to either set a real password when you&rsquo;re done or remove the battery. Anyone else with the Particle Accelerator app could muck with your new Particle if you forget.</p>
 
 <h2>UUID</h2>
 
