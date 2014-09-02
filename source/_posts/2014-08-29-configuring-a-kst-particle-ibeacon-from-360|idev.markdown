@@ -55,7 +55,7 @@ The password scheme for the Particles given out at 360|iDev is: **360iDev123** â
 
 The number on the back of my Particle is 57, so the initial password to configure it was 360iDev57 (no leading zeros).
 
-You can change the password once the current password is accepted. A blank password is allowed and does make it easier to use the app since you will be asked for the password each time you connect to the Particle. However, if you set a blank password, remember to either set a real password when your done or remove the battery. Anyone else with the Particle Accelerator app could muck with your new Particle if you forget.
+You can change the password once the current password is accepted. A blank password is allowed and does make it easier to use the app since you will be asked for the password each time you connect to the Particle. However, if you set a blank password, remember to either set a real password when you're done or remove the battery. Anyone else with the Particle Accelerator app could muck with your new Particle if you forget.
 
 ## UUID
 
