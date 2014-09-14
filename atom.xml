@@ -4,7 +4,7 @@
   <title><![CDATA[phatblat's reflog]]></title>
   <link href="http://phatblat.com/atom.xml" rel="self"/>
   <link href="http://phatblat.com/"/>
-  <updated>2014-09-02T09:26:27-06:00</updated>
+  <updated>2014-09-14T17:28:11-06:00</updated>
   <id>http://phatblat.com/</id>
   <author>
     <name><![CDATA[Ben Chatelain]]></name>
@@ -12,6 +12,117 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Git Sparse Checkout]]></title>
+    <link href="http://phatblat.com/blog/2014/09/14/git-sparse-checkout/"/>
+    <updated>2014-09-14T17:30:57-06:00</updated>
+    <id>http://phatblat.com/blog/2014/09/14/git-sparse-checkout</id>
+    <content type="html"><![CDATA[<p>Have you ever wanted to download just a subfolder of a git repo? Sure, you can clone the whole repo and then drill into that subfolder. However, if the point of just bringing down a subfolder is for easier distribution of just some of the files, the other files in the repo can be distracting (i.e. &ldquo;which sub-sub-sub folder did she say to open?&rdquo;).</p>
+
+<!-- more -->
+
+
+<p>Git is a system designed to remember every change to the tracked files in a repository. Once a file goes in, it&rsquo;s there for good since it becomes part of the log history (unless you slice and dice it with filter-branch, but that has side-effects). Since remembering your files and their content is a primary feature, git doesn&rsquo;t currently have the ability to clone just a subfolder (which would save bandwidth). However, git does have the ability to checkout a subset of the repo, like a subfolder. This is what&rsquo;s referred to as a &ldquo;sparse checkout&rdquo;.</p>
+
+<p>The exercise here is to get a copy of just the images from my blog. Not terribly exciting, but I&rsquo;ve devised a script which should be easy for you to adapt for this same purpose for any other repo.</p>
+
+<h2>The Code</h2>
+
+<script src="https://gist.github.com/phatblat/a5caa3bb3a3784f03000.js"></script>
+
+
+<p>I&rsquo;m going to walk through this script with the lines a bit out of order; variables will be interspersed with the code that uses them. I generally build scripts with all the variables at the top to make it easy to see what can be tweaked, but having them inline makes the logic easier to follow.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>tmpdir=/tmp/phatblat-images
+</span><span class='line'>mkdir $tmpdir
+</span><span class='line'>cd $tmpdir
+</span><span class='line'>git init</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This sets up a fresh, empty repository in a temporary directory.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>remote_git=git://github.com/phatblat/phatblat.github.io.git
+</span><span class='line'>git remote add -f origin $remote_git</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The <strong>-f</strong> flag to the <code>git remote add</code> command causes git to immediately fetch from the remote when it is added. This is where this approach is less than idea. All objects in the repo are fetched from the remote, even though only a subset of the files will be checked out. However, this keeps the repo functional as I&rsquo;ll talk about at the end.</p>
+
+<h2>Git Protocol</h2>
+
+<p>The reason for the <code>git://</code> protocol is because this is the <a href="http://git-scm.com/book/en/Git-on-the-Server-The-Protocols#The-Git-Protocol">fastest transfer protocol available</a>. This is the best approach for fast, read-only access to a repo, but could fail from inside a corporate firewall.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>remote_https=https://github.com/phatblat/phatblat.github.io.git
+</span><span class='line'>git remote add -f origin $remote_git || \
+</span><span class='line'>  git remote set-url origin $remote_https && \
+</span><span class='line'>  git fetch origin</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If the fetch fails due to the <code>git://</code> protocol being blocked (port 9418), the indented commands will change the origin remote&rsquo;s url to one that uses https and try fetching again. There is a significant delay before the fetch fails. I haven&rsquo;t figured out how to shorten the timeout that git uses.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git config core.sparseCheckout true
+</span><span class='line'>subdir=images/
+</span><span class='line'>echo "$subdir" &gt; .git/info/sparse-checkout</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The new repo is configured to with sparse checkout enabled for only the &ldquo;images&rdquo; folder. No other folders will be checked out.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git checkout master</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The checkout is where the filtering happens. Here the <code>master</code> branch is being checked out, but only the images folder is actually being copied into the work tree.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>subdir=images/
+</span><span class='line'>open $subdir</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This <a href="https://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man1/open.1.html">open</a> command on OS X is very handy for opening a folder in the Finder.</p>
+
+<h2>Use Cases</h2>
+
+<h3>Designer-Managed Images</h3>
+
+<p>Beyond effectively downloading a subfolder, this sparse checkout has other uses. The resulting local repo is a fully functional git repo. You can browse the history and create new commits. This makes it especially handy for designers to manage images without fear of accidentally changing any other files. By checking out only the images folder, finding the existing images is also easier due to less noise from files and folders unrelated to the designers tasks.</p>
+
+<h3>Octopress Zen Mode</h3>
+
+<p>The <code>sparse-checkout</code> file uses the same syntax as <code>.gitignore</code>. The following lines tell git to only checkout markdown files:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>*.md
+</span><span class='line'>*.markdown</span></code></pre></td></tr></table></div></figure>
+
+
+<p>After changing the <code>.git/info/sparse-checkout</code> file, do a <code>checkout &lt;branch&gt;</code> (<code>checkout source</code> in the case of Octopress) in order to update the work tree with this new &ldquo;view&rdquo; of files.</p>
+
+<p><img class="center" src="http://phatblat.com/images/git-sparse-checkout-markdown.png" title="Sparse checkout of only markdown files" alt="an image from OS X Terminal showing a tree of only markdown files"></p>
+
+<p>After getting this far into this feature of git, I may end up using it to help reduce the filesystem noise from Octopress. It always takes me a few minutes to remember where everything goes.</p>
+
+<h2>Caveats</h2>
+
+<p>Note that if you plan to use a repo with sparse checkout for creating new commits and pushing these back to a central remote, you&rsquo;ll need to ditch the <code>git://</code> protocol since it can only be used for read-only access. Either HTTPS or <a href="https://help.github.com/articles/which-remote-url-should-i-use#cloning-with-ssh">SSH</a> style URLs can be used for pushing changes up. Also, if you&rsquo;ve already cloned a repo using the <code>git://</code> protocol, you don&rsquo;t need to re-clone it to change this protocol. Just use the <a href="https://help.github.com/articles/changing-a-remote-s-url"><code>git remote set-url</code></a> command to change the remote URL.</p>
+
+<p>For more details around what you can do with it, check out the docs on <a href="http://git-scm.com/docs/git-read-tree#_sparse_checkout">sparse checkout</a>.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Configuring a KST Particle: iBeacon from 360|iDev]]></title>
