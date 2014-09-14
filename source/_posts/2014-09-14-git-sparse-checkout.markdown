@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Git Sparse Checkout"
-date: 2014-09-13 22:30:57 -0600
+date: 2014-09-14 17:30:57 -0600
 comments: true
 published: true
 categories: git tricks
