@@ -48,7 +48,7 @@ git remote add -f origin $remote_git || \
 	git fetch origin
 ```
 
-If the fetch fails due to the `git://` protocol being blocked (port 9418), the indented commands will change the origin remote's url to one that uses https and try fetching again. There is a significant delay before the fetch fails. I haven't figured out how to shorten the timeout that git uses.
+If the fetch fails due to the `git://` protocol being blocked (port 9418), the indented commands will execute and change the origin remote's url to one that uses https and try fetching again. There is a significant delay before the fetch fails. I haven't figured out how to shorten the timeout that git uses.
 
 ```
 git config core.sparseCheckout true
