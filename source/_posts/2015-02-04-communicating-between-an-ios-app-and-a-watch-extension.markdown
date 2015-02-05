@@ -12,9 +12,13 @@ I'm building a WatchKit extension for an existing iOS app and have been experime
 
 This is simply a graphical representation of the summary presented in a [Developer Forums thread](https://devforums.apple.com/thread/256667?tstart=0).
 
-The real gem in this is that Darwin notifications (`CFNotificationCenterGetDarwinNotifyCenter`) can be used to notify the other processes that there is new data available in the shared container. I haven't worked with Darwin notifications before, but the big difference from NSNotifications is that you can't pass any data along with it, just an identifier.
+The real gem in this is that Darwin notifications (`CFNotificationCenterGetDarwinNotifyCenter`) can be used to notify the other processes that there is new data available in the shared container. I haven't worked with Darwin notifications before, but the big difference from NSNotifications is that you can't pass any data along with it, just an identifier. Oh, and they are inter-process, which is essential for this type of communication.
 
 Note that "write data to shared container" includes any API that writes out files - just point it inside the NSURL returned `-[NSFileManager containerURLForSecurityApplicationGroupIdentifier:]`. 
+
+## openParentApplication:reply:
+
+Added in beta 3, this method and the corresponding `application:handleWatchKitExtensionRequest:reply:` UIApplicationDelegate method provides a unique option for WatchKit extensions. It is the only way to explicitly wake up the containing iOS app from an Apple Watch if it is suspended or not running, but note that the iOS app is awoken _in the background_. The `reply` block allows the iOS app to return a small amount of data to the WatchKit extension, but care must be taken with it. You'll get a warning if the logic on the iOS app side doesn't call the reply block. Also, ensure that the previous call to `openParentApplication:reply:` has finished before making another. I've had calls ignored because a previous one was in flight.
 
 ## NSUserDefaults
 
