@@ -4,7 +4,7 @@
   <title><![CDATA[Category: watchkit | phatblat's reflog]]></title>
   <link href="http://phatblat.com/blog/categories/watchkit/atom.xml" rel="self"/>
   <link href="http://phatblat.com/"/>
-  <updated>2015-02-04T23:22:03-07:00</updated>
+  <updated>2015-02-04T23:24:00-07:00</updated>
   <id>http://phatblat.com/</id>
   <author>
     <name><![CDATA[Ben Chatelain]]></name>
@@ -40,7 +40,7 @@
 
 <p><a href="https://github.com/mutualmobile/MMWormhole">MMWormhole</a> is a very neat library which handles a lot of these details for you providing a simple API for passing messages between an iOS app and extensions.</p>
 
-<p>Tom Harrington has some great (extension development tips)[<a href="http://atomicbird.com/blog/ios-app-extension-tips">http://atomicbird.com/blog/ios-app-extension-tips</a>].</p>
+<p>Tom Harrington has some great <a href="http://atomicbird.com/blog/ios-app-extension-tips">extension development tips</a>.</p>
 
 <p>Remember to <a href="https://developer.apple.com/library/ios/technotes/tn2408/_index.html">stay away from the file coordination APIs</a>.</p>
 ]]></content>
