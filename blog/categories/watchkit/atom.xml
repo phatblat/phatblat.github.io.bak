@@ -4,7 +4,7 @@
   <title><![CDATA[Category: watchkit | phatblat's reflog]]></title>
   <link href="http://phatblat.com/blog/categories/watchkit/atom.xml" rel="self"/>
   <link href="http://phatblat.com/"/>
-  <updated>2015-02-04T23:00:39-07:00</updated>
+  <updated>2015-02-04T23:22:03-07:00</updated>
   <id>http://phatblat.com/</id>
   <author>
     <name><![CDATA[Ben Chatelain]]></name>
@@ -24,9 +24,13 @@
 
 <p>This is simply a graphical representation of the summary presented in a <a href="https://devforums.apple.com/thread/256667?tstart=0">Developer Forums thread</a>.</p>
 
-<p>The real gem in this is that Darwin notifications (<code>CFNotificationCenterGetDarwinNotifyCenter</code>) can be used to notify the other processes that there is new data available in the shared container. I haven&rsquo;t worked with Darwin notifications before, but the big difference from NSNotifications is that you can&rsquo;t pass any data along with it, just an identifier.</p>
+<p>The real gem in this is that Darwin notifications (<code>CFNotificationCenterGetDarwinNotifyCenter</code>) can be used to notify the other processes that there is new data available in the shared container. I haven&rsquo;t worked with Darwin notifications before, but the big difference from NSNotifications is that you can&rsquo;t pass any data along with it, just an identifier. Oh, and they are inter-process, which is essential for this type of communication.</p>
 
 <p>Note that &ldquo;write data to shared container&rdquo; includes any API that writes out files &ndash; just point it inside the NSURL returned <code>-[NSFileManager containerURLForSecurityApplicationGroupIdentifier:]</code>.</p>
+
+<h2>openParentApplication:reply:</h2>
+
+<p>Added in beta 3, this method and the corresponding <code>application:handleWatchKitExtensionRequest:reply:</code> UIApplicationDelegate method provides a unique option for WatchKit extensions. It is the only way to explicitly wake up the containing iOS app from an Apple Watch if it is suspended or not running, but note that the iOS app is awoken <em>in the background</em>. The <code>reply</code> block allows the iOS app to return a small amount of data to the WatchKit extension, but care must be taken with it. You&rsquo;ll get a warning if the logic on the iOS app side doesn&rsquo;t call the reply block. Also, ensure that the previous call to <code>openParentApplication:reply:</code> has finished before making another. I&rsquo;ve had calls ignored because a previous one was in flight.</p>
 
 <h2>NSUserDefaults</h2>
 
