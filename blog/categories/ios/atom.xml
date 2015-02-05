@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: ios | phatblat's reflog]]></title>
+  <link href="http://phatblat.com/blog/categories/ios/atom.xml" rel="self"/>
+  <link href="http://phatblat.com/"/>
+  <updated>2015-02-04T23:00:39-07:00</updated>
+  <id>http://phatblat.com/</id>
+  <author>
+    <name><![CDATA[Ben Chatelain]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Communicating Between an iOS App and a Watch Extension]]></title>
+    <link href="http://phatblat.com/blog/2015/02/04/communicating-between-an-ios-app-and-a-watch-extension/"/>
+    <updated>2015-02-04T22:13:24-07:00</updated>
+    <id>http://phatblat.com/blog/2015/02/04/communicating-between-an-ios-app-and-a-watch-extension</id>
+    <content type="html"><![CDATA[<p>I&rsquo;m building a WatchKit extension for an existing iOS app and have been experimenting with the &ldquo;plumbing&rdquo; between the two. Watch extensions are different animals than other iOS 8 extensions, but there is a lot of overlap in this area. Today I made a diagram to show the options of getting data to the iPhone app from the Watch and vice-versa.</p>
+
+<p><img src="/images/apple_watch_communication.png" title="&lsquo;Communicating between an iOS App and a Watch Extension&rsquo; &lsquo;a flowchart diagram&rsquo;" ></p>
+
+<p>This is simply a graphical representation of the summary presented in a <a href="https://devforums.apple.com/thread/256667?tstart=0">Developer Forums thread</a>.</p>
+
+<p>The real gem in this is that Darwin notifications (<code>CFNotificationCenterGetDarwinNotifyCenter</code>) can be used to notify the other processes that there is new data available in the shared container. I haven&rsquo;t worked with Darwin notifications before, but the big difference from NSNotifications is that you can&rsquo;t pass any data along with it, just an identifier.</p>
+
+<p>Note that &ldquo;write data to shared container&rdquo; includes any API that writes out files &ndash; just point it inside the NSURL returned <code>-[NSFileManager containerURLForSecurityApplicationGroupIdentifier:]</code>.</p>
+
+<h2>NSUserDefaults</h2>
+
+<p>If you&rsquo;re using NSUserDefaults, it&rsquo;s just an API on top of a plist file. When you stand up an NSUserDefaults instance using <code>-initWithSuiteName:</code> the data ends up in a file <code>&lt;SHARED_CONTAINER&gt;/Library/Preferences/&lt;APP_ID&gt;.plist</code> (where SHARED_CONTAINER is something like <code>~/Library/Developer/CoreSimulator/Devices/1A8DF360-B0A6-4815-95F3-68A6AB0BCC78/data/Container/Data/Application/</code>). That file will be written to every time you call <code>+synchronize</code> or at &ldquo;periodic intervals&rdquo;.</p>
+
+<h2>Other Tidbits</h2>
+
+<p><a href="https://github.com/mutualmobile/MMWormhole">MMWormhole</a> is a very neat library which handles a lot of these details for you providing a simple API for passing messages between an iOS app and extensions.</p>
+
+<p>Tom Harrington has some great (extension development tips)[<a href="http://atomicbird.com/blog/ios-app-extension-tips">http://atomicbird.com/blog/ios-app-extension-tips</a>].</p>
+
+<p>Remember to <a href="https://developer.apple.com/library/ios/technotes/tn2408/_index.html">stay away from the file coordination APIs</a>.</p>
+]]></content>
+  </entry>
+  
+</feed>

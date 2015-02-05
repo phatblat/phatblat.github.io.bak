@@ -114,6 +114,63 @@
 
 
 
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2015-02-04T22:13:24-07:00" pubdate data-updated="true">Feb 4<sup>th</sup>, 2015</time>
+        
+      </p>
+    
+    
+      <h1 class="entry-title"><a href="/blog/2015/02/04/communicating-between-an-ios-app-and-a-watch-extension/">Communicating Between an iOS App and a Watch Extension</a></h1>
+    
+  </header>
+
+
+  <div class="entry-content clearfix"><p>I&rsquo;m building a WatchKit extension for an existing iOS app and have been experimenting with the &ldquo;plumbing&rdquo; between the two. Watch extensions are different animals than other iOS 8 extensions, but there is a lot of overlap in this area. Today I made a diagram to show the options of getting data to the iPhone app from the Watch and vice-versa.</p>
+
+<p><img src="/images/apple_watch_communication.png" title="Communicating between an iOS App and a Watch Extension" alt="a flowchart diagram"></p>
+
+<p>This is simply a graphical representation of the summary presented in a <a href="https://devforums.apple.com/thread/256667?tstart=0">Developer Forums thread</a>.</p>
+
+<p>The real gem in this is that Darwin notifications (<code>CFNotificationCenterGetDarwinNotifyCenter</code>) can be used to notify the other processes that there is new data available in the shared container. I haven&rsquo;t worked with Darwin notifications before, but the big difference from NSNotifications is that you can&rsquo;t pass any data along with it, just an identifier.</p>
+
+<p>Note that &ldquo;write data to shared container&rdquo; includes any API that writes out files &ndash; just point it inside the NSURL returned <code>-[NSFileManager containerURLForSecurityApplicationGroupIdentifier:]</code>.</p>
+
+<h2>NSUserDefaults</h2>
+
+<p>If you&rsquo;re using NSUserDefaults, it&rsquo;s just an API on top of a plist file. When you stand up an NSUserDefaults instance using <code>-initWithSuiteName:</code> the data ends up in a file <code>&lt;SHARED_CONTAINER&gt;/Library/Preferences/&lt;APP_ID&gt;.plist</code> (where SHARED_CONTAINER is something like <code>~/Library/Developer/CoreSimulator/Devices/1A8DF360-B0A6-4815-95F3-68A6AB0BCC78/data/Container/Data/Application/</code>). That file will be written to every time you call <code>+synchronize</code> or at &ldquo;periodic intervals&rdquo;.</p>
+
+<h2>Other Tidbits</h2>
+
+<p><a href="https://github.com/mutualmobile/MMWormhole">MMWormhole</a> is a very neat library which handles a lot of these details for you providing a simple API for passing messages between an iOS app and extensions.</p>
+
+<p>Tom Harrington has some great (extension development tips)[<a href="http://atomicbird.com/blog/ios-app-extension-tips">http://atomicbird.com/blog/ios-app-extension-tips</a>].</p>
+
+<p>Remember to <a href="https://developer.apple.com/library/ios/technotes/tn2408/_index.html">stay away from the file coordination APIs</a>.</p>
+</div>
+  
+  
+
+
+        </article>
+      
+      
+        <article class="post">
+          
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
 <span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-09-14T17:30:57-06:00" pubdate data-updated="true">Sep 14<sup>th</sup>, 2014</time>
         
       </p>
@@ -334,6 +391,8 @@
   
   <div id="recent_posts" class="list-group">
     
+    <a class="list-group-item " href="/blog/2015/02/04/communicating-between-an-ios-app-and-a-watch-extension/">Communicating Between an iOS App and a Watch Extension</a>
+    
     <a class="list-group-item " href="/blog/2014/09/14/git-sparse-checkout/">Git Sparse Checkout</a>
     
     <a class="list-group-item " href="/blog/2014/08/29/configuring-a-kst-particle-ibeacon-from-360%7Cidev/">Configuring a KST Particle: iBeacon From 360|iDev</a>
@@ -415,7 +474,7 @@
     </div>
     <footer role="contentinfo"><div class="container">
     <p class="text-muted credits">
-  Copyright &copy; 2014 - Ben Chatelain<br>
+  Copyright &copy; 2015 - Ben Chatelain<br>
   <small>
       <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>,
       <span class="credit">customized with <a href="https://github.com/kAworu/octostrap3">octostrap3</a></span>.

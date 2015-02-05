@@ -4,7 +4,7 @@
   <title><![CDATA[Category: git | phatblat's reflog]]></title>
   <link href="http://phatblat.com/blog/categories/git/atom.xml" rel="self"/>
   <link href="http://phatblat.com/"/>
-  <updated>2014-09-14T17:28:11-06:00</updated>
+  <updated>2015-02-04T23:00:39-07:00</updated>
   <id>http://phatblat.com/</id>
   <author>
     <name><![CDATA[Ben Chatelain]]></name>
@@ -64,7 +64,7 @@ git fetch origin
 
 <p>```</p>
 
-<p>If the fetch fails due to the <code>git://</code> protocol being blocked (port 9418), the indented commands will change the origin remote&rsquo;s url to one that uses https and try fetching again. There is a significant delay before the fetch fails. I haven&rsquo;t figured out how to shorten the timeout that git uses.</p>
+<p>If the fetch fails due to the <code>git://</code> protocol being blocked (port 9418), the indented commands will execute and change the origin remote&rsquo;s url to one that uses https and try fetching again. There is a significant delay before the fetch fails. I haven&rsquo;t figured out how to shorten the timeout that git uses.</p>
 
 <p><code>
 git config core.sparseCheckout true
