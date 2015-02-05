@@ -28,7 +28,7 @@ If you're using NSUserDefaults, it's just an API on top of a plist file. When yo
 
 [MMWormhole](https://github.com/mutualmobile/MMWormhole) is a very neat library which handles a lot of these details for you providing a simple API for passing messages between an iOS app and extensions.
 
-Tom Harrington has some great (extension development tips)[http://atomicbird.com/blog/ios-app-extension-tips].
+Tom Harrington has some great [extension development tips](http://atomicbird.com/blog/ios-app-extension-tips).
 
 Remember to [stay away from the file coordination APIs](https://developer.apple.com/library/ios/technotes/tn2408/_index.html).
 
